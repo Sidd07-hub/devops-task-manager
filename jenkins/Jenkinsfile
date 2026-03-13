@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/Sidd07-hub/devops-task-manager.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                bat 'docker build -t task-manager -f docker/Dockerfile .'
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                bat 'kubectl apply -f kubernetes/deployment.yaml'
+                bat 'kubectl apply -f kubernetes/service.yaml'
+            }
+        }
+
+    }
+}
