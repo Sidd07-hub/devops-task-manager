@@ -5,7 +5,7 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/Sidd07-hub/devops-task-manager.git'
+                git branch: 'main', url: 'https://github.com/Sidd07-hub/devops-task-manager.git'
             }
         }
 
