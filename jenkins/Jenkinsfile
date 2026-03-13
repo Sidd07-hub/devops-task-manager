@@ -11,16 +11,22 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t task-manager -f docker/Dockerfile .'
+                bat 'docker build -t siddhesh013/task-manager -f docker/Dockerfile .'
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                bat 'docker push siddhesh013/task-manager'
             }
         }
 
         stage('Deploy to Kubernetes') {
-    steps {
-        bat 'set KUBECONFIG=C:\\Users\\siddh\\.kube\\config && kubectl apply -f kubernetes/deployment.yaml'
-        bat 'set KUBECONFIG=C:\\Users\\siddh\\.kube\\config && kubectl apply -f kubernetes/service.yaml'
-    }
-}
+            steps {
+                bat 'set KUBECONFIG=C:\\Users\\siddh\\.kube\\config && kubectl apply -f kubernetes/deployment.yaml'
+                bat 'set KUBECONFIG=C:\\Users\\siddh\\.kube\\config && kubectl apply -f kubernetes/service.yaml'
+            }
+        }
 
     }
 }
